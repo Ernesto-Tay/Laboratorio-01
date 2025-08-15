@@ -1,10 +1,10 @@
-def IDDupeError(BaseException):
+def IDDupeError(Exception):
     "Pasa cuando una ID ingresada ya existe"
     pass
-def IDNegativeError(BaseException):
+def IDNegativeError(Exception):
     "Pasa cuando una ID es negativa"
     pass
-def IDInexistError(BaseException):
+def IDInexistError(Exception):
     "Pasa cuando una ID buscada no existe"
     pass
 
@@ -51,12 +51,14 @@ while True:
                         dispositivos[ID] = {
                             Computadora(marca,modelo,direccion_ip,usuario,sistema)
                         }
+                        break
 
                     elif tipo == "Impresora":
                         impresion = input("Tipo de impresión: ").capitalize()
                         dispositivos[ID] = {
                             Impresora(marca,modelo,direccion_ip,impresion)
                         }
+                        break
                 except IDDupeError as e:
                     print(e)
                 except IDNegativeError as e:
