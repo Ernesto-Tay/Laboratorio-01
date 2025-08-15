@@ -4,6 +4,9 @@ def IDDupeError(Exception):
 def IDNegativeError(Exception):
     "Pasa cuando una ID es negativa"
     pass
+def IDInexistError(Exception):
+    "Pasa cuando una ID buscada no existe"
+    pass
 
 dispositivos = {}
 class Dispositivo:
@@ -86,7 +89,23 @@ while True:
 
 
         case "3":
-            pass
+            if not dispositivos:
+                print("No hay dispositivos ingresados")
+            else:
+                while True:
+                    try:
+                        ID = int(input("\nIngresa la ID del dispositivo a eliminar: "))
+                        if not dispositivos.get(ID):
+                            raise IDInexistError("El dispositivo buscado no existe")
+                        else:
+                            del dispositivos[ID]
+                            break
+                    except ValueError:
+                        print("Ingrese una ID válida (solo números enteros)")
+                    except Exception as e:
+                        print("Error inesperado", e)
+
+
         case "4":
             print("Saliendo...")
             break
