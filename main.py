@@ -1,10 +1,10 @@
-def IDDupeError(Exception):
+def IDDupeError(BaseException):
     "Pasa cuando una ID ingresada ya existe"
     pass
-def IDNegativeError(Exception):
+def IDNegativeError(BaseException):
     "Pasa cuando una ID es negativa"
     pass
-def IDInexistError(Exception):
+def IDInexistError(BaseException):
     "Pasa cuando una ID buscada no existe"
     pass
 
@@ -20,13 +20,13 @@ class Computadora(Dispositivo):
         super().__init__(marca,modelo,direccion_ip)
         self.usuario_asignado = usuario_asignado
         self.sistema_operativo = sistema_operativo
-        self.tipo = "computadora"
+        self.tipo = "Computadora"
 
 class Impresora(Dispositivo):
     def __init__(self,marca,modelo,direccion_ip,tipo_impresion):
         super().__init__(marca,modelo,direccion_ip)
         self.tipo_impresion = tipo_impresion
-        self.tipo = "impresora"
+        self.tipo = "Impresora"
 
 while True:
     print("\n\n----------------SISTEMA DE MANEJO DE DISPOSITIVOS---------------\n1. Registrar un dispositivo\n2. Mostrar todos los dispositivos\n3. Eliminar un dispositivo\n4. Salir")
@@ -48,13 +48,13 @@ while True:
                     if tipo == "Computadora":
                         usuario = input("Usuario asignado: ")
                         sistema = input("Sistema operativo: ")
-                        dispositivos[ID] : {
+                        dispositivos[ID] = {
                             Computadora(marca,modelo,direccion_ip,usuario,sistema)
                         }
 
                     elif tipo == "Impresora":
                         impresion = input("Tipo de impresión: ").capitalize()
-                        dispositivos[ID] : {
+                        dispositivos[ID] = {
                             Impresora(marca,modelo,direccion_ip,impresion)
                         }
                 except IDDupeError as e:
@@ -63,6 +63,8 @@ while True:
                     print(e)
                 except ValueError:
                     print("Ingrese solo números en la ID")
+                except Exception as e:
+                    print("Error inesperado: ", e)
 
 
         case "2":
