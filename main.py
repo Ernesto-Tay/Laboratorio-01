@@ -1,21 +1,27 @@
+def IDDupeError(Exception):
+    "Pasa cuando una ID ingresada ya existe"
+    pass
+def IDNegativeError(Exception):
+    "Pasa cuando una ID es negativa"
+    pass
+
 dispositivos = {}
 class Dispositivo:
-    def __init__(self,ID, marca,modelo,direccion_ip):
-        self.ID = ID
+    def __init__(self, marca,modelo,direccion_ip):
         self.marca = marca
         self.modelo = modelo
         self.direccion_ip = direccion_ip
 
 class Computadora(Dispositivo):
-    def __init__(self,ID,marca,modelo,direccion_ip,usuario_asignado,sistema_operativo):
-        super().__init__(ID,marca,modelo,direccion_ip)
+    def __init__(self,marca,modelo,direccion_ip,usuario_asignado,sistema_operativo):
+        super().__init__(marca,modelo,direccion_ip)
         self.usuario_asignado = usuario_asignado
         self.sistema_operativo = sistema_operativo
         self.tipo = "computadora"
 
 class Impresora(Dispositivo):
-    def __init__(self,ID,marca,modelo,direccion_ip,tipo_impresion):
-        super().__init__(ID,marca,modelo,direccion_ip)
+    def __init__(self,marca,modelo,direccion_ip,tipo_impresion):
+        super().__init__(marca,modelo,direccion_ip)
         self.tipo_impresion = tipo_impresion
         self.tipo = "impresora"
 
@@ -24,7 +30,38 @@ while True:
     select = input("Seleccione una opción: ")
     match select:
         case "1":
-            pass
+            while True:
+                try:
+                    ID = int(input("\nIngresa la ID del dispositivo: "))
+                    marca = input("Marca del dispositivo: ").capitalize()
+                    tipo = input("Tipo de dispositivo: ").capitalize()
+                    modelo = input("Modelo del dispositivo: ").capitalize()
+                    direccion_ip = input("Direccion IP del dispositivo: ")
+                    if any( ex_ID == ID for ex_ID in dispositivos.keys()):
+                        raise IDDupeError("La ID ingresada ya está en uso")
+                    elif ID < 0:
+                        raise IDNegativeError("El valor de la ID no puede ser negativo")
+
+                    if tipo == "Computadora":
+                        usuario = input("Usuario asignado: ")
+                        sistema = input("Sistema operativo: ")
+                        dispositivos[ID] : {
+                            Computadora(marca,modelo,direccion_ip,usuario,sistema)
+                        }
+
+                    elif tipo == "Impresora":
+                        impresion = input("Tipo de impresión: ").capitalize()
+                        dispositivos[ID] : {
+                            Impresora(marca,modelo,direccion_ip,impresion)
+                        }
+                except IDDupeError as e:
+                    print(e)
+                except IDNegativeError as e:
+                    print(e)
+                except ValueError:
+                    print("Ingrese solo números en la ID")
+
+
         case "2":
             pass
         case "3":
