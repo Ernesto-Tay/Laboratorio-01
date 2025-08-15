@@ -34,7 +34,7 @@ while True:
                 try:
                     ID = int(input("\nIngresa la ID del dispositivo: "))
                     marca = input("Marca del dispositivo: ").capitalize()
-                    tipo = input("Tipo de dispositivo: ").capitalize()
+                    tipo = input("Tipo de dispositivo (Computadora/Impresora): ").capitalize()
                     modelo = input("Modelo del dispositivo: ").capitalize()
                     direccion_ip = input("Direccion IP del dispositivo: ")
                     if any( ex_ID == ID for ex_ID in dispositivos.keys()):
@@ -63,7 +63,28 @@ while True:
 
 
         case "2":
-            pass
+            if not dispositivos:
+                print("No hay dispositivos registrados aún")
+            else:
+                Comp = False
+                Printers = False
+                if any(dispositivo.tipo == "Computadora" for dispositivo in dispositivos.values()):
+                    Comp = True
+                if any(dispositivo.tipo == "Impresora" for dispositivo in dispositivos.values()):
+                    Printers = True
+                for id, dispositivo in dispositivos.items():
+                    if Comp:
+                        print("\n---COMPUTADORAS INGRESADAS---")
+                        if dispositivo.tipo == "Computadora":
+                            print(f"ID: {id}\nMARCA: {dispositivo.marca}\nMODELO: {dispositivo.modelo}\nDIRECCION IP: {dispositivo.direccion_ip}\nUSUARIO: {dispositivo.usuario_asignado}\nSISTEMA OPERATIVO: {dispositivo.sistema_operativo}")
+
+                    if Printers:
+                        print("\n---IMPRESSION INGRESADAS---")
+                        if dispositivo.tipo == "Impresora":
+                            print(
+                                f"ID: {id}\nMARCA: {dispositivo.marca}\nMODELO: {dispositivo.modelo}\nDIRECCION IP: {dispositivo.direccion_ip}\nTIPO DE IMPRESION: {dispositivo.tipo_impresion}")
+
+
         case "3":
             pass
         case "4":
